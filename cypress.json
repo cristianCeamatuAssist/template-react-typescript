@@ -1,0 +1,10 @@
+{
+  "projectId": "put your project ID here",
+  "viewportWidth": 1240,
+  "viewportHeight": 800,
+  "mobileViewportWidthBreakpoint": 768,
+  "defaultCommandTimeout": 25000,
+  "requestTimeout": 25000,
+  "baseUrl": "http://localhost:3000",
+  "videoCompression": 10
+}

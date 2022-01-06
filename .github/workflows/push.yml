@@ -1,0 +1,78 @@
+name: Merge Gate Workflow
+on:
+  push:
+    branches-ignore:
+      - main
+jobs:
+  run-tests:
+    runs-on:
+      - self-hosted
+      - linux
+      - x64
+      - dev
+      - docker
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Use Node.js 14.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14.x
+      - name: Install yarn
+        run: npm install -g yarn
+      - name: Retrieve linux version
+        run: uname -a
+      - name: Retrieve mem info
+        run: free -h
+      - name: Retrieve User Pool
+        run: |
+          export USER_POOL=$(aws secretsmanager get-secret-value --secret-id oai-dev-secret-content-userpool --query=SecretString --output=text)
+          echo "USER_POOL=$USER_POOL" >> $GITHUB_ENV
+      - name: Run Solutions Tests
+        uses: cypress-io/github-action@v2
+        env:
+          REACT_APP_CONTENT_URL: 'https://content.phoenix.newdev.virtualoutbound.com/'
+          REACT_APP_user_pool: ${{ env.USER_POOL }}
+        with:
+          working-directory: source
+          # record: true
+          # group: chrome
+          # parallel: true
+          command: yarn run test:unit
+  generate-terraform-plan:
+    needs: [run-tests]
+    runs-on:
+      - self-hosted
+      - linux
+      - x64
+      - dev
+      - docker
+    steps:
+      - name: Checkout Branch
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.6
+      - name: Validate Terraform Formatting
+        working-directory: ./deployment/environments/dev
+        env:
+          TERRAFORM_MODULE_USER: ${{ secrets.PACKAGE_USER }}
+          TERRAFORM_MODULE_TOKEN: ${{ secrets.PACKAGE_TOKEN }}
+        run: terraform fmt -check -recursive
+      - name: Validate Terraform Plan
+        working-directory: ./deployment/environments/dev
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+        run: |
+          export GITHUB_PAT=$(aws secretsmanager get-secret-value --secret-id runner_registration_token --query=SecretString --output=text | jq --raw-output '.token')
+          git config --global url."https://${GITHUB_ACTOR}:${GITHUB_PAT}@github.com/outbound-ai".insteadOf "https://github.com/outbound-ai"
+          terraform init
+          terraform validate
+          terraform plan

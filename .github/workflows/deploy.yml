@@ -1,0 +1,66 @@
+name: Deploy Workflow
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: The name of the environment to deploy. This should exactly match the name of a folder in /deployment/environments.
+        required: true
+        default: dev
+jobs:
+  apply-terraform-plan-and-deploy:
+    runs-on:
+      - self-hosted
+      - linux
+      - x64
+      - docker
+      - ${{ github.event.inputs.environment }}
+    steps:
+      - name: Echo received inputs
+        run: |
+          echo "environment: ${{ github.event.inputs.environment }}"
+      - name: Checkout Branch
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - name: Setup Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+        with:
+          terraform_version: 1.0.6
+      - name: Validate Terraform Formatting
+        working-directory: ./deployment/environments/${{ github.event.inputs.environment }}
+        env:
+          TERRAFORM_MODULE_USER: ${{ secrets.PACKAGE_USER }}
+          TERRAFORM_MODULE_TOKEN: ${{ secrets.PACKAGE_TOKEN }}
+        run: terraform fmt -check -recursive
+      - name: Validate Terraform Plan
+        working-directory: ./deployment/environments/${{ github.event.inputs.environment }}
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+        run: |
+          export GITHUB_PAT=$(aws secretsmanager get-secret-value --secret-id runner_registration_token --query=SecretString --output=text | jq --raw-output '.token')
+          git config --global url."https://${GITHUB_ACTOR}:${GITHUB_PAT}@github.com/outbound-ai".insteadOf "https://github.com/outbound-ai"
+          terraform init
+          terraform validate
+          terraform apply -auto-approve
+      - name: Install, Build and Deploy
+        working-directory: ./source
+        run: |
+          npm install -g yarn
+          yarn install
+          yarn build-${{ github.event.inputs.environment }}
+          aws s3 cp --recursive ./build/ s3://oai-${{ github.event.inputs.environment }}-s3-bucket-[TO_FILL:AWSResourceName, Make sure this matches the bucket name created in s3-bucket.tf line 2]/
+
+      # The below can be used to create and bind to the github action a zip archive of the build that is was deployed
+      # - name: Get current date
+      #   id: date
+      #   run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
+      # - name: Save the `build` folder as an artifact
+      #   uses: actions/upload-artifact@v1
+      #   if: success() || github.event.inputs.environment == 'production'
+      #   with:
+      #     name: release-${{ steps.date.outputs.date }}
+      #     path: source/build
