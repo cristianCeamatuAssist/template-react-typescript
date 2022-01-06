@@ -64,4 +64,4 @@ export const incrementIfOdd = (amount: number) => (dispatch: AppDispatch, getSta
   }
 }
 
-export default counterSlice.reducer
+export const counterReducer = counterSlice.reducer
