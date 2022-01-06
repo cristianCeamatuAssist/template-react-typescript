@@ -24,17 +24,11 @@ jobs:
         run: uname -a
       - name: Retrieve mem info
         run: free -h
-      - name: Retrieve User Pool
-        run: |
-          export USER_POOL=$(aws secretsmanager get-secret-value --secret-id oai-dev-secret-content-userpool --query=SecretString --output=text)
-          echo "USER_POOL=$USER_POOL" >> $GITHUB_ENV
       - name: Run Solutions Tests
         uses: cypress-io/github-action@v2
         env:
-          REACT_APP_CONTENT_URL: 'https://content.phoenix.newdev.virtualoutbound.com/'
-          REACT_APP_user_pool: ${{ env.USER_POOL }}
+          REACT_APP_CONTENT_URL: 'https://content.com/'
         with:
-          working-directory: source
           # record: true
           # group: chrome
           # parallel: true

@@ -44,8 +44,8 @@ To get this project up and running locally, you must have [node](https://nodejs.
     ```bash
       > npx husky install
 
-      # IMPORTANT! Only if the .husky/pre-commit is not defined already or it does not contain `cd source && yarn lint-staged`
-      > npx husky add .husky/pre-commit "cd source && yarn lint-staged"
+      # IMPORTANT! Only if the .husky/pre-commit is not defined already or it does not contain `yarn lint-staged`
+      > npx husky add .husky/pre-commit "yarn lint-staged"
     ```
 3. Run `yarn start` to start the project, it should automatically redirect or you can now navigate to `http://localhost:3000` to view the app. The server refreshes every time you make a change to a file.<br>
 4. Most important, enjoy the app!<br>

@@ -4,7 +4,7 @@ on:
     inputs:
       environment:
         type: choice
-        description: The E2E tests can be run directly on the github branch or on the development environment URL ([TO_FILL:ProjectDevURL, example: https://console.virtualoutbound.com]).
+        description: The E2E tests can be run directly on the github branch or on the development environment URL ([TO_FILL:ProjectDevURL, example: https://console.com]).
         required: true
         options:
           - selected-branch
@@ -32,17 +32,11 @@ jobs:
           node-version: 14.x
       - name: Install yarn
         run: npm install -g yarn
-      - name: Retrieve User Pool
-        run: |
-          export USER_POOL=$(aws secretsmanager get-secret-value --secret-id oai-dev-secret-content-userpool --query=SecretString --output=text)
-          echo "USER_POOL=$USER_POOL" >> $GITHUB_ENV
       - name: Run Solutions Tests
         uses: cypress-io/github-action@v2
         env:
-          REACT_APP_CONTENT_URL: 'https://content.phoenix.newdev.virtualoutbound.com/'
-          REACT_APP_user_pool: ${{ env.USER_POOL }}
+          REACT_APP_CONTENT_URL: 'https://content.com/'
         with:
-          working-directory: source
           start: yarn run start
           wait-on: http://localhost:3000
           wait-on-timeout: 6000
@@ -55,13 +49,13 @@ jobs:
         if: failure()
         with:
           name: cypress-videos
-          path: source/cypress/videos
+          path: cypress/videos
       - name: Save screenshots to an artifact on failure
         uses: actions/upload-artifact@v1
         if: failure()
         with:
           name: cypress-screenshots
-          path: source/cypress/screenshots
+          path: cypress/screenshots
 
   run-dev-url-tests:
     if: github.event.inputs.environment == 'dev-url'
@@ -80,33 +74,27 @@ jobs:
           node-version: 14.x
       - name: Install yarn
         run: npm install -g yarn
-      - name: Retrieve User Pool
-        run: |
-          export USER_POOL=$(aws secretsmanager get-secret-value --secret-id oai-dev-secret-content-userpool --query=SecretString --output=text)
-          echo "USER_POOL=$USER_POOL" >> $GITHUB_ENV
       - name: Run Solutions Tests
         uses: cypress-io/github-action@v2
         env:
-          REACT_APP_CONTENT_URL: 'https://content.phoenix.newdev.virtualoutbound.com/'
-          REACT_APP_user_pool: ${{ env.USER_POOL }}
+          REACT_APP_CONTENT_URL: 'backend.url'
         with:
-          working-directory: source
           # start: yarn run start
           # wait-on: http://localhost:3000
           # wait-on-timeout: 6000
           # record: true
           # group: chrome
           # parallel: true
-          command: yarn run test:e2e --config baseUrl=[TO_FILL:ProjectDevURL, example: https://console.virtualoutbound.com]
+          command: yarn run test:e2e --config baseUrl="google.com"
       - name: Save video recordings to an artifact on failure
         uses: actions/upload-artifact@v1
         if: failure()
         with:
           name: cypress-videos
-          path: source/cypress/videos
+          path: cypress/videos
       - name: Save screenshots to an artifact on failure
         uses: actions/upload-artifact@v1
         if: failure()
         with:
           name: cypress-screenshots
-          path: source/cypress/screenshots
+          path: cypress/screenshots
