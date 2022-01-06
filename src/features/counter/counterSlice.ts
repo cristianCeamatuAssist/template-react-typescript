@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AppDispatch, RootState, store } from '../../app/store'
+import { AppDispatch, RootState, store } from 'state'
 import { fetchCount } from './counterAPI'
 
 // Define a type for the slice state
