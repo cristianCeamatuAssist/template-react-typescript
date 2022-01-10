@@ -128,27 +128,30 @@ To get this project up and running locally, you must have [node](https://nodejs.
     |   |       ├── LoadingAnimation.tsx      # Contains an exported (not default export) reusable animation that accepts parameter (ex: { title, subtitle, color})
     |   |       └── NoContentBox.tsx          # Contains an exported (not default export) reusable box that accepts parameter (ex: { title, subtitle, iconComponent})
     |   ├── features                          # App features, ex: counter/calls/users
-    |   |   └── counter  
+    |   |   └── counter                       # Holds all files and folders related to this feature (global state, api, utils, types, configs, model etc...)
     |   |       ├── index.ts                  # Re-exports all exports from each file and folder (ex: `export * from './components'`)
     |   |       ├── counterApi.ts             # The api service for this feature
     |   |       ├── counterSlice.ts           # The reducer for this feature (ex: redux/mobx)
-    |   |       ├── utils                     # The utils functions required only for this feature (ex: convertTodoToArray)          
-    |   |       ├── types                     # The types required only for this feature (ex: ITodo, IPostResponse)   
+    |   |       ├── utils                     # The utils functions required only for this feature (ex: convertTodoToArray)
+    |   |       ├── types                     # The types required only for this feature (ex: ITodo, IPostResponse)
     |   |       └── components                # React reusable TSX components (they hold global state provided by the counter feature)
     |   |           ├── index.ts              # Re-exports all exports from each file and folder (ex: `export * from './Counter'`)
     |   |           └── Counter.tsx           # A component that uses global state provided by the counter slice
-    |   |       
-    |   |                          
+    |   |
+    |   |
     |   ├── hooks                             # Generic hooks that need to be shared between components and features
-    |   ├── pages                             # Pages used by the router
+    |   ├── pages                             # Pages used by the app (could also be named `screens`)
+    |   |   ├── index.tsx                     # Re-exports all exports from each file and folder (ex: `export * from './Dashboard'`)
+    |   |   ├── Router.tsx                    # Holds the React router for the main pages
+    |   |   └── Dashboard.tsx                 # Dashboard page (when the project get's bigger and you have lot's of pages they can be grouped in subfolders)
     |   ├── services                          # 3rd party services
     |   ├── types                             # Generic types that need to be shared between components and features
     |   ├── utils                             # Generic helper functionality that need to be shared between components and features, ex: `date.ts` (dates formatting) or `dom.ts` (dom manipulation)
     |   ├── App.tsx                           # Basic React App component, we add our pages Router Component and custom High Order Components here, ex: Theme or GlobalStyles
     |   └── index.tsx                         # Basic React index.tsx file, we add wrapper provided by packages, ex: Router (react-router-dom) or Provider (react-redux)
-    ├── .prettierrc.js                        # Settings for prettier formatting
-    ├── build-development.sh                  # Build command used for the development environment deploys to grab any required AWS secrets before running the build
-    ├── build-production.sh                   # Build command used for the production environment deploys to grab any required AWS secrets before running the build
+    ├── .prettierrc.js                        # Settings for prettier formatting (this is important to keep consistency when multiple developers work on the same project)
+    ├── build-development.sh                  # Build command used for the development environment deploys to grab any required AWS secrets before running the build (very usefull for CI/CD pipelines with different environment variables for each deployment)
+    ├── build-production.sh                   # Build command used for the production environment deploys to grab any required AWS secrets before running the build (very usefull for CI/CD pipelines with different environment variables for each deployment)
     ├── cypress.json                          # Cypress settings
     └── tsconfig.json                         # Typescript settings
 
