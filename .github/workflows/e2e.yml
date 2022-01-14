@@ -17,12 +17,7 @@ on:
 jobs:
   run-selected-branch-tests:
     if: github.event.inputs.environment == 'selected-branch'
-    runs-on:
-      - self-hosted
-      - linux
-      - x64
-      - dev
-      - docker
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -59,12 +54,7 @@ jobs:
 
   run-dev-url-tests:
     if: github.event.inputs.environment == 'dev-url'
-    runs-on:
-      - self-hosted
-      - linux
-      - x64
-      - dev
-      - docker
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2

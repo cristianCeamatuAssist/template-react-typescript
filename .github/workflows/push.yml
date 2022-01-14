@@ -5,12 +5,7 @@ on:
       - main
 jobs:
   run-tests:
-    runs-on:
-      - self-hosted
-      - linux
-      - x64
-      - dev
-      - docker
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
