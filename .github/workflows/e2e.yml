@@ -4,7 +4,7 @@ on:
     inputs:
       environment:
         type: choice
-        description: The E2E tests can be run directly on the github branch or on the development environment URL ([TO_FILL:ProjectDevURL, example: https://console.com]).
+        description: The E2E tests can be run directly on the github branch or on the development environment URL 
         required: true
         options:
           - selected-branch
