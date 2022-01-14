@@ -6,7 +6,7 @@ import { IColumn, IRow, ISelectableRows, TableHeadCell } from 'components'
 interface IProps {
   columns: IColumn[]
   hiddenColumns?: string[]
-  rows: IRow[] | null
+  rows?: IRow[] | null
   sortingBy?: (type: string) => void
   sorting: string
   selectableRows?: {
@@ -43,8 +43,8 @@ export const TableHead = ({ sortingBy, columns, sorting, rows, hiddenColumns, se
 
         {columns?.map(
           (column) =>
-            !hiddenColumns?.includes(column.name) && (
-              <TableHeadCell key={column.name} column={column} sortingBy={sortingBy} sorting={sorting} />
+            !hiddenColumns?.includes(column.prop) && (
+              <TableHeadCell key={column.prop} column={column} sortingBy={sortingBy} sorting={sorting} />
             ),
         )}
       </tr>
@@ -65,7 +65,7 @@ const StyledThead = styled.thead`
       position: sticky;
       top: 0;
       text-align: left;
-      background-color: ${({ theme }) => theme.colors.white} !important;
+      background-color: ${({ theme }) => theme.colors.white};
 
       &:first-child {
         z-index: 2;

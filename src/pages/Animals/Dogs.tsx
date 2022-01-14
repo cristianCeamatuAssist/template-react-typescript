@@ -17,5 +17,7 @@ export const Dogs = () => {
 }
 
 export const Div = styled.div`
-  text-align: center;
+  h3 {
+    text-align: center;
+  }
 `

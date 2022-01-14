@@ -9,7 +9,7 @@ interface IProps {
   sorting: string
 }
 export const TableHeadCell = ({ column, sortingBy, sorting }: IProps) => {
-  const { label, name, extraProps } = column
+  const { label, prop, extraProps } = column
 
   return (
     <StyledTh {...extraProps} title={label} scope="row">
@@ -17,10 +17,10 @@ export const TableHeadCell = ({ column, sortingBy, sorting }: IProps) => {
         {label}
         {!column?.hideSortBy && sortingBy && (
           <div className="sorting">
-            <BsCaretUpFill className={cx({ active: column.name === sorting })} onClick={() => sortingBy(name)} />
+            <BsCaretUpFill className={cx({ active: column.prop === sorting })} onClick={() => sortingBy(prop)} />
             <BsCaretDownFill
-              className={cx({ active: `-${column.name}` === sorting })}
-              onClick={() => sortingBy(`-${name}`)}
+              className={cx({ active: `-${column.prop}` === sorting })}
+              onClick={() => sortingBy(`-${prop}`)}
             />
           </div>
         )}
@@ -30,6 +30,8 @@ export const TableHeadCell = ({ column, sortingBy, sorting }: IProps) => {
 }
 
 const StyledTh = styled.th`
+  font-size: ${({ theme }) => theme.typography.small};
+  
   > div {
     display: flex;
     justify-content: space-between;

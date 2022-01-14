@@ -1,8 +1,9 @@
 // import { preProcessingStatusColorMapping } from 'features/claims'
 export interface IColumn {
-  name: string
+  prop: string
   label: string
   hideSortBy?: boolean
+  align?: 'left' | 'right' | 'center'
   extraProps?: { [key: string]: string }
   format?: (value: string | number | boolean) => string
 }

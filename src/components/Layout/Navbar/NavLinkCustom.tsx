@@ -12,4 +12,6 @@ export const NavLinkCustom = ({ children, onClick }: IProps) => {
 
 const StyledDiv = styled.div`
   cursor: ${({ onClick }) => (onClick ? 'pointer' : 'default')};
+  display: flex;
+  align-items: center;
 `

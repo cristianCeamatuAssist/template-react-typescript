@@ -9,6 +9,7 @@ export interface IBreed {
   country_code: string
   image: IBreedImage
   bred_for: string
+  breed_group: string
 }
 
 export interface IBreedImage {

@@ -14,7 +14,7 @@ import {
 interface IProps {
   isLoading: boolean
   error: null | string
-  rows: IRow[] | null
+  rows?: IRow[] | null
   columns: IColumn[]
   selectableRows?: ISelectableRows
   noDataState?: INoDataState
@@ -72,12 +72,14 @@ export const TableBody = ({ isLoading, error, rows, columns, hiddenColumns, noDa
             )}
 
             {columns?.map((column, index) => {
-              const isVisibleColumn = !hiddenColumns?.includes(column.name)
+              const isVisibleColumn = !hiddenColumns?.includes(column.prop)
               if (isVisibleColumn) {
-                return React.isValidElement(row[column.name]) ? (
-                  <React.Fragment key={`column-${index}`}>{row[column.name]}</React.Fragment>
+                return React.isValidElement(row[column.prop]) ? (
+                  <React.Fragment key={`column-${index}`}>{row[column.prop]}</React.Fragment>
                 ) : (
-                  <td key={`column-${index}`}>{column.format ? column.format(row[column.name]) : row[column.name]}</td>
+                  <td key={`column-${index}`} className={column.align && `text-${column.align}`}>
+                    {column.format ? column.format(row[column.prop]) : row[column.prop]}
+                  </td>
                 )
               }
               return null

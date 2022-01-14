@@ -15,7 +15,7 @@ import {
 interface IProps {
   isLoading: boolean
   error: null | string
-  rows: any[] | null
+  rows?: any[] | null
   columns: IColumn[]
   sort?: ISort
   pagination?: IPagination

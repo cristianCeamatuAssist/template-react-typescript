@@ -4,7 +4,7 @@ import { GlobalStyles } from './GlobalStyles'
 import { IChildrenNode } from 'types'
 
 export const theme = {
-  borderRadius: '15px',
+  borderRadius: '4px',
   spacing: '1rem',
   colors: {
     secondary: '#B9D4E8',
@@ -55,7 +55,7 @@ export const theme = {
   constants: {
     navbarHeight: '2.84375rem', // 45.55px
     workQueueTopNavHeight: '2.8125rem', // 45px
-    tableHeadHeight: '2.8125rem', // 45px
+    tableHeadHeight: '5rem', // 45px
     paginationHeight: '1.375rem', // 22px
   },
 

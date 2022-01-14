@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { theme } from 'components'
+import { theme } from 'globalStyles'
 
 interface IProps {
   text: string
