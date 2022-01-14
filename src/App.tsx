@@ -1,12 +1,13 @@
-import { BrowserRouter } from 'react-router-dom'
 // pages
 import { Router } from 'pages'
+import { Theme, GlobalStyles } from 'components'
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <Theme>
+      <GlobalStyles />
       <Router />
-    </BrowserRouter>
+    </Theme>
   )
 }
 

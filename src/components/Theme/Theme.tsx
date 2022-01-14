@@ -79,7 +79,7 @@ export const theme = {
   },
 }
 
-const Theme = ({ children }: IChildrenNode) => {
+export const Theme = ({ children }: IChildrenNode) => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
@@ -87,5 +87,3 @@ const Theme = ({ children }: IChildrenNode) => {
     </ThemeProvider>
   )
 }
-
-export default Theme

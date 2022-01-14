@@ -20,5 +20,6 @@ export const StyleLayout = styled.div`
   main {
     height: 100vh;
     margin-top: ${({ theme }) => theme.constants.navbarHeight};
+    padding: 2rem;
   }
 `

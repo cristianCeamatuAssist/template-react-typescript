@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 import cx from 'classnames'
-import { ReactComponent as PolygonDownIcon } from 'assets/images/table/PolygonDownIcon.svg'
-import { ReactComponent as PolygonUpIcon } from 'assets/images/table/PolygonUpIcon.svg'
+import { BsCaretUpFill, BsCaretDownFill } from 'react-icons/bs'
 import { IColumn } from 'components'
 
 interface IProps {
@@ -18,8 +17,8 @@ export const TableHeadCell = ({ column, sortingBy, sorting }: IProps) => {
         {label}
         {!column?.hideSortBy && sortingBy && (
           <div className="sorting">
-            <PolygonUpIcon className={cx({ active: column.name === sorting })} onClick={() => sortingBy(name)} />
-            <PolygonDownIcon
+            <BsCaretUpFill className={cx({ active: column.name === sorting })} onClick={() => sortingBy(name)} />
+            <BsCaretDownFill
               className={cx({ active: `-${column.name}` === sorting })}
               onClick={() => sortingBy(`-${name}`)}
             />

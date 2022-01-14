@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 import cx from 'classnames'
-// styles and assets
-import { ReactComponent as CaretLeftDoubleIcon } from 'assets/images/table/CaretLeftDouble.svg'
-import { ReactComponent as CaretLeftSimpleIcon } from 'assets/images/table/CaretLeftSimple.svg'
-import { ReactComponent as CaretRightDoubleIcon } from 'assets/images/table/CaretRightDouble.svg'
-import { ReactComponent as CaretRightSimpleIcon } from 'assets/images/table/CaretRightSimple.svg'
+import {
+  BsFillSkipBackwardFill,
+  BsFillCaretLeftFill,
+  BsFillSkipForwardFill,
+  BsFillCaretRightFill,
+} from 'react-icons/bs'
 // components
 import { IPagination, Divider } from 'components'
 
@@ -37,22 +38,22 @@ export const TablePagination = ({ pagination, hasResults }: IProps) => {
           <option value="30">30</option>
           <option value="40">40</option>
         </select>
-        <CaretRightDoubleIcon
+        <BsFillSkipBackwardFill
           className={cx({ disabled: !hasResults })}
           onClick={() => pagination.page !== 1 && changePage(1)}
         />
-        <CaretRightSimpleIcon
+        <BsFillCaretRightFill
           className={cx({ disabled: !hasResults })}
           onClick={() => pagination.page - 1 > 0 && changePage(pagination.page - 1)}
         />
         <div className="page-number">
           Page <span>{pagination.page}</span> of <span>{totalPages}</span>
         </div>
-        <CaretLeftSimpleIcon
+        <BsFillCaretLeftFill
           className={cx({ disabled: !hasResults })}
           onClick={() => pagination.page + 1 <= totalPages && changePage(pagination.page + 1)}
         />
-        <CaretLeftDoubleIcon
+        <BsFillSkipForwardFill
           className={cx({ disabled: !hasResults })}
           onClick={() => pagination.page !== totalPages && changePage(totalPages)}
         />
