@@ -31,7 +31,7 @@ export const TableHeadCell = ({ column, sortingBy, sorting }: IProps) => {
 
 const StyledTh = styled.th`
   font-size: ${({ theme }) => theme.typography.small};
-  
+
   > div {
     display: flex;
     justify-content: space-between;

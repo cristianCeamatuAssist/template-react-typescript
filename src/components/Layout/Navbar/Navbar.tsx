@@ -14,7 +14,9 @@ export const Navbar = () => {
   return (
     <StyledNavbar>
       <div>
-        <NavLinkCustom onClick={() => navigate(PathsEnum.dogs)}>{<SiDatadog size="2rem" color="white" />}</NavLinkCustom>
+        <NavLinkCustom onClick={() => navigate(PathsEnum.dogs)}>
+          {<SiDatadog size="2rem" color="white" />}
+        </NavLinkCustom>
       </div>
       <div>
         <NavLink to={PathsEnum.dogs}>Dogs</NavLink>
