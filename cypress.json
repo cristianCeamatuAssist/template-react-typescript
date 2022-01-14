@@ -6,5 +6,7 @@
   "defaultCommandTimeout": 25000,
   "requestTimeout": 25000,
   "baseUrl": "http://localhost:3000",
-  "videoCompression": 10
+  "videoCompression": 10,
+  "integrationFolder": ".",
+  "testFiles": "**/*.spec.+(ts|js)"
 }

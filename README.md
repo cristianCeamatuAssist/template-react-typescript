@@ -149,7 +149,7 @@ To get this project up and running locally, you must have [node](https://nodejs.
     |   |   └── Dashboard.tsx                 # Dashboard page (when the project get's bigger and you have lot's of pages they can be grouped in subfolders)
     |   |
     |   ├── services                          # 3rd party services
-    |   ├── types                             # Generic types that need to be shared between components and features
+    |   ├── types                             # Generic types that need to be shared **between** components and features
     |   ├── utils                             # Generic helper functionality that need to be shared between components and features, ex: `date.ts` (dates formatting) or `dom.ts` (dom manipulation)
     |   ├── App.tsx                           # Basic React App component, we add our pages Router Component and custom High Order Components here, ex: Theme or GlobalStyles
     |   └── index.tsx                         # Basic React index.tsx file, we add wrapper provided by packages, ex: Router (react-router-dom) or Provider (react-redux)
