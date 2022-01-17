@@ -7,6 +7,7 @@ export const Router = () => {
     <Routes>
       {/* Public Routes */}
       <Route path={PathsEnum.dogs} element={<Dogs />} />
+      <Route path={PathsEnum.dogs} element={<Dogs />} />
 
       {/* Signed in routes */}
       {/* <Route element={(() => (loggedIn ? <Outlet /> : <Navigate replace to={PathsEnum.login} />))()}>

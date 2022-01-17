@@ -87,26 +87,30 @@ const StyledDiv = styled.div`
   table {
     border-spacing: 0;
     width: 100%;
+    height: 100%;
     max-width: 100%;
     max-height: 100%;
     border: none;
 
     tbody tr,
     thead tr {
-      line-height: 25px;
-      min-height: 25px;
+      line-height: 1rem;
+      min-height: 1rem;
     }
 
     tbody td,
     thead th {
       text-overflow: ellipsis;
       vertical-align: middle;
-      padding-inline: 1em;
-      padding: 0.75rem;
+      padding: 0.25rem 1rem;
 
       &:first-child {
         padding-left: 1.25rem;
       }
+    }
+
+    thead th {
+      padding-block: 0.5rem;
     }
   }
 

@@ -1,12 +1,33 @@
-import useSWR from 'swr'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
+import { useEffect } from 'react'
+import { useAppDispatch, useAppSelector } from 'state'
 // components
 import { Table, TableBodyCell, TableImage } from 'components'
 // features
-import { DogsPathsEnum, dogsApi } from 'features/dogs'
+import { updateTableState, getBreeds } from 'features/dogs'
 
 export const BreedsTable = () => {
-  const { data: breeds, error } = useSWR(`${DogsPathsEnum.breeds}?limit=20`, dogsApi.getBreeds)
+  // global state
+  const { itemsPerPage, page, totalItems, apiQuery, data, isLoading, error } = useAppSelector(
+    (state) => state.dogs.breedsTable,
+  )
+
+  // utils
+  const dispatch = useAppDispatch()
+
+  // effects
+  useEffect(() => {
+    dispatch(getBreeds(apiQuery))
+  }, [apiQuery, dispatch])
+
+  // handlers
+  const changeItemsPerPageHandler = (value: number | string) => {
+    dispatch(updateTableState({ table: 'breedsTable', prop: 'itemsPerPage', value }))
+  }
+
+  const changePageHandler = (value: number | string) => {
+    dispatch(updateTableState({ table: 'breedsTable', prop: 'page', value }))
+  }
 
   // variables
   const columns = [
@@ -17,7 +38,7 @@ export const BreedsTable = () => {
     { prop: 'picture', label: 'Picture' },
   ]
 
-  const rows = breeds?.map((breed) => {
+  const rows = data?.map((breed) => {
     return {
       id: breed.id,
       name: breed.name,
@@ -27,19 +48,25 @@ export const BreedsTable = () => {
       picture: <TableBodyCell component={<TableImage src={breed.image.url} alt={breed.name} />} />,
     }
   })
-  const isLoading = !breeds && !error
 
   return (
     <Div>
-      <Table isLoading={isLoading} error={error} columns={columns} rows={rows} />
+      <Table
+        isLoading={isLoading}
+        error={error}
+        columns={columns}
+        rows={rows}
+        pagination={{ itemsPerPage, page, totalItems, changePageHandler, changeItemsPerPageHandler }}
+      />
     </Div>
   )
 }
 
-export const Div = styled.div`
-  height: calc(
-    100vh - ${({ theme }) => theme.constants.navbarHeight} - ${({ theme }) => theme.constants.tableHeadHeight}
-  );
+const Div = styled.div`
+  ${({ theme }) => css`
+    height: calc(100vh - ${theme.constants.navbarHeight} - ${theme.constants.tableHeadHeight});
+  `}
   box-shadow: ${({ theme }) => theme.shadows.light};
   border-radius: ${({ theme }) => theme.borderRadius};
+  position: relative;
 `

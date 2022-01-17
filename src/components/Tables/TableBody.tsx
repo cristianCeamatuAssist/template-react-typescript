@@ -28,7 +28,7 @@ export const TableBody = ({ isLoading, error, rows, columns, hiddenColumns, noDa
 
   return (
     <StyledTbody>
-      <tr className="bg-white content-states-wrapper">
+      <tr className="bg-white">
         {isLoading && (
           <td colSpan={columns?.length}>
             <LoadingBox message="Fetching resources..." />
@@ -59,14 +59,14 @@ export const TableBody = ({ isLoading, error, rows, columns, hiddenColumns, noDa
           <tr key={index}>
             {selectableRows && rows?.length && (
               <th>
-                <label className="sf-thin-text sf-checkboxes-input d-block m-0">
+                <label className="d-block m-0">
                   <input
                     name={row.id}
                     type="checkbox"
                     checked={selectableRows.selectedRows[row.id]}
                     onChange={toggleSelectRowHandler}
                   />
-                  <div className="sf-custom-checkbox-input mx-auto"></div>
+                  <div className="mx-auto"></div>
                 </label>
               </th>
             )}

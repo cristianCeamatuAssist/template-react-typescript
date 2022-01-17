@@ -67,7 +67,7 @@ const StyledThead = styled.thead`
       text-align: left;
       background-color: ${({ theme }) => theme.colors.white};
 
-      &:first-child {
+      &.sticky {
         z-index: 2;
         left: 2px;
       }

@@ -21,6 +21,5 @@ const StyledTd = styled.td`
   gap: 0.5em;
   z-index: 2;
   position: sticky;
-  left: 0;
   z-index: 1;
 `
