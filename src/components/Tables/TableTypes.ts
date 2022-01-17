@@ -1,4 +1,3 @@
-// import { preProcessingStatusColorMapping } from 'features/claims'
 export interface IColumn {
   prop: string
   label: string
@@ -10,7 +9,6 @@ export interface IColumn {
 
 export interface IRow {
   id: string
-  // status: keyof typeof preProcessingStatusColorMapping
   [key: string]: string | number | boolean
 }
 

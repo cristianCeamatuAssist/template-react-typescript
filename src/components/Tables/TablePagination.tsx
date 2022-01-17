@@ -16,11 +16,11 @@ interface IProps {
 
 export const TablePagination = ({ pagination, hasResults }: IProps) => {
   const changePage = (page: string | number) => {
-    pagination?.changePageHandler(page)
+    pagination?.changePageHandler(+page)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    pagination.changeItemsPerPageHandler(e.target.value)
+    pagination.changeItemsPerPageHandler(+e.target.value)
   }
 
   // variables
@@ -42,14 +42,14 @@ export const TablePagination = ({ pagination, hasResults }: IProps) => {
           className={cx({ disabled: !hasResults })}
           onClick={() => pagination.page !== 1 && changePage(1)}
         />
-        <BsFillCaretRightFill
+        <BsFillCaretLeftFill
           className={cx({ disabled: !hasResults })}
           onClick={() => pagination.page - 1 > 0 && changePage(pagination.page - 1)}
         />
         <div className="page-number">
           Page <span>{pagination.page}</span> of <span>{totalPages}</span>
         </div>
-        <BsFillCaretLeftFill
+        <BsFillCaretRightFill
           className={cx({ disabled: !hasResults })}
           onClick={() => pagination.page + 1 <= totalPages && changePage(pagination.page + 1)}
         />
