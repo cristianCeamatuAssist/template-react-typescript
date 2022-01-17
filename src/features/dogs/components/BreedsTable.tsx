@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from 'state'
 // components
@@ -8,7 +8,9 @@ import { updateTableState, getBreeds } from 'features/dogs'
 
 export const BreedsTable = () => {
   // global state
-  const { itemsPerPage, page, totalItems, apiQuery, data } = useAppSelector((state) => state.dogs.breedsTable)
+  const { itemsPerPage, page, totalItems, apiQuery, data, isLoading, error } = useAppSelector(
+    (state) => state.dogs.breedsTable,
+  )
 
   // utils
   const dispatch = useAppDispatch()
@@ -21,10 +23,6 @@ export const BreedsTable = () => {
   // handlers
   const changeItemsPerPageHandler = (value: number | string) => {
     dispatch(updateTableState({ table: 'breedsTable', prop: 'itemsPerPage', value }))
-  }
-
-  const sortByHandler = (value: string) => {
-    dispatch(updateTableState({ table: 'breedsTable', prop: 'sorting', value }))
   }
 
   const changePageHandler = (value: number | string) => {
@@ -54,10 +52,8 @@ export const BreedsTable = () => {
   return (
     <Div>
       <Table
-        // isLoading={isLoading}
-        // error={error}
-        isLoading={false}
-        error={null}
+        isLoading={isLoading}
+        error={error}
         columns={columns}
         rows={rows}
         pagination={{ itemsPerPage, page, totalItems, changePageHandler, changeItemsPerPageHandler }}
@@ -67,9 +63,10 @@ export const BreedsTable = () => {
 }
 
 const Div = styled.div`
-  height: calc(
-    100vh - ${({ theme }) => theme.constants.navbarHeight} - ${({ theme }) => theme.constants.tableHeadHeight}
-  );
+  ${({ theme }) => css`
+    height: calc(100vh - ${theme.constants.navbarHeight} - ${theme.constants.tableHeadHeight});
+  `}
   box-shadow: ${({ theme }) => theme.shadows.light};
   border-radius: ${({ theme }) => theme.borderRadius};
+  position: relative;
 `

@@ -29,6 +29,8 @@ const initialState = {
     apiQuery: '?limit=20',
     filters: null,
     searchQuery: null,
+    isLoading: false,
+    error: null,
   },
 } as IDogsState
 
@@ -45,17 +47,28 @@ const dogsSlice = createSlice({
       const { table, prop, value } = action.payload
       // https://dustinpfister.github.io/2018/12/04/lodash_set/
       set(state, `${table}.${prop}`, value)
+
+      if (['itemsPerPage'].includes(prop)) state[table].page = 1
       state[table].apiQuery = createApiQueryFromState(state[table])
     },
   },
   extraReducers: (builder) => {
     builder.addCase(getBreeds.fulfilled, (state, action) => {
+      state.breedsTable.isLoading = false
       if (action.payload) {
         const { results, totalItems } = action.payload
         state.breedsTable.data = results
         state.breedsTable.totalItems = totalItems
         if (state.breedsTable.page === 0 && totalItems) state.breedsTable.page = 1
       }
+    })
+    builder.addCase(getBreeds.pending, (state) => {
+      state.breedsTable.isLoading = true
+      if (state.breedsTable.error) state.breedsTable.error = null
+    })
+    builder.addCase(getBreeds.rejected, (state, action) => {
+      state.breedsTable.isLoading = false
+      state.breedsTable.error = action.payload
     })
   },
 })

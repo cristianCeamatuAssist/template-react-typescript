@@ -40,6 +40,8 @@ export interface ITableState {
   filters: { [k: string]: string[] } | null
   searchQuery: string | null
   apiQuery: string
+  isLoading: boolean
+  error: null | any
 }
 
 export enum DogsPathsEnum {
