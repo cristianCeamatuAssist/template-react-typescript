@@ -3,7 +3,7 @@ import axios from 'axios'
 import { IBreedsApiResponse } from 'features/dogs'
 
 export const httpDogs = axios.create({
-  baseURL: process.env.REACT_APP_DOGS_URL,
+  baseURL: process.env.REACT_APP_DOGS_URL || 'https://api.thedogapi.com/',
 })
 
 const getBreeds = async (url: string): Promise<IBreedsApiResponse> => {

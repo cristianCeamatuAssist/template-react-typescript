@@ -119,25 +119,26 @@ To get this project up and running locally, you must have [node](https://nodejs.
     ├── src                                   # Source files
     |   ├── state                             # Includes the global state management setup (ex: Redux Toolkit store and hooks)
     |   ├── assets                            # Images, icons and downloadable files
+    |   |   ├── styles                        # The global theme and styles (styled-components used in our case)
     |   |   ├── images                        # Images, can be structured per features (ex: posts, blog, team, contact page)
     |   |   ├── icons                         # Icons, can be structured per functionality/use case (ex: generic, admin, public, dashboard)
     |   |   └── downloads                     # Downloads, can be structured per functionality/use case (ex: generic, GDPR)
     |   |
     |   ├── components                        # React reusable TSX components (they do not hold any kind of global state)
-    |   |   ├── index.ts                      # Re-exports all exports from each file and folder (ex: `export * from './States'`)
-    |   |   └── States
+    |   |   ├── index.ts                      # Re-exports all exports from each file and folder (ex: `export * from './Loading'`)
+    |   |   └── Loading
     |   |       ├── index.ts                  # Re-exports all exports from each file and folder (ex: `export * from './LoadingAnimation'`)
-    |   |       ├── LoadingAnimation.tsx      # Contains an exported (not default export) reusable animation that accepts parameter (ex: { title, subtitle, color})
-    |   |       └── NoContentBox.tsx          # Contains an exported (not default export) reusable box that accepts parameter (ex: { title, subtitle, iconComponent})
+    |   |       ├── LoadingAnimation.tsx      # Contains an exported (not default export) reusable animation that accepts parameters (ex: { title, subtitle, color})
+    |   |       └── LoadingBox.tsx          # Contains an exported (not default export) reusable box that accepts parameters (ex: { title, subtitle, iconComponent})
     |   |
     |   ├── features                          # App features, ex: counter/calls/users
     |   |   └── counter                       # Holds all files and folders related to this feature (global state, api, utils, types, configs, model etc...)
     |   |       ├── index.ts                  # Re-exports all exports from each file and folder (ex: `export * from './components'`)
     |   |       ├── counterApi.ts             # The api service for this feature
     |   |       ├── counterSlice.ts           # The reducer for this feature (ex: redux/mobx)
-    |   |       ├── utils                     # The utils functions required only for this feature (ex: convertTodoToArray)
-    |   |       ├── types                     # The types required only for this feature (ex: ITodo, IPostResponse)
-    |   |       ├── assets                    # Images, icons and downloadable files the are needed only by the components belonging to this feature
+    |   |       ├── counterUtils              # The utils functions required only for this feature (ex: convertTodoToArray)
+    |   |       ├── counterTypes              # The types required only for this feature (ex: ITodo, IPostResponse)
+    |   |       ├── counterAssets             # Images, icons and downloadable files the are needed only by the components belonging to this feature
     |   |       └── components                # React reusable TSX components (they hold global state provided by the counter feature)
     |   |           ├── index.ts              # Re-exports all exports from each file and folder (ex: `export * from './Counter'`)
     |   |           └── Counter.tsx           # A component that uses global state provided by the counter slice
