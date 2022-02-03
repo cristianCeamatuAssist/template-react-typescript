@@ -8,12 +8,12 @@ import { updateTableState, getBreeds } from 'features/dogs'
 
 export const BreedsTable = () => {
   // global state
-  const { itemsPerPage, page, totalItems, apiQuery, data, isLoading, error } = useAppSelector(
+  const {itemsPerPage, page, totalItems, apiQuery, data, isLoading, error} = useAppSelector(
     (state) => state.dogs.breedsTable,
   )
 
   // utils
-  const dispatch = useAppDispatch()
+  const dispatch   useAppDispatch()
 
   // effects
   useEffect(() => {
