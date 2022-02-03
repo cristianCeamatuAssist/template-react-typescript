@@ -22,15 +22,15 @@
   - [Built With](#built-with)
   - [Live links:](#live-links)
   - [Tests](#tests)
-      - [Tested with](#tested-with)
-      - [All Tests (e2e and unit tests)](#all-tests-e2e-and-unit-tests)
-      - [Unit Tests](#unit-tests)
-      - [E2E Tests](#e2e-tests)
+    - [Tested with](#tested-with)
+    - [All Tests (e2e and unit tests)](#all-tests-e2e-and-unit-tests)
+    - [Unit Tests](#unit-tests)
+    - [E2E Tests](#e2e-tests)
   - [Files and Folder Structure Conventions](#files-and-folder-structure-conventions)
   - [Useful links](#useful-links)
-      - [Jira:](#jira)
-      - [Confluence:](#confluence)
-      - [Project design links:](#project-design-links)
+    - [Jira:](#jira)
+    - [Confluence:](#confluence)
+    - [Project design links:](#project-design-links)
 
 ## Prerequisites
 
